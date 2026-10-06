@@ -1,6 +1,11 @@
 import QtQuick 2.9
 import Lomiri.Components 1.3
 
+<<<<<<< HEAD
+=======
+// Κυμαινόμενο "+" που ξεπροβάλλει από το κάτω άκρο. Όταν το πατάς, ανεβαίνει
+// απαλά και οι επιλογές ανοίγουν σε βεντάλια, η μία μετά την άλλη.
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
 Item {
   id: root
 
@@ -12,9 +17,16 @@ Item {
   readonly property real btnSize: units.gu(7)
   readonly property real itemSize: units.gu(5)
   readonly property real arcRadius: units.gu(18)
+<<<<<<< HEAD
   readonly property real liftDistance: units.gu(4)
   readonly property real staggerFrac: 0.4
 
+=======
+  readonly property real liftDistance: units.gu(4)   // πόσο ανεβαίνει το κουμπί
+  readonly property real staggerFrac: 0.4            // πόσο "αργά" ξεκινά η κάθε επιλογή
+
+  // lift: κίνηση του κουμπιού (με ελαφρύ "ελατήριο")
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   property real lift: expanded ? 1 : 0
   Behavior on lift {
     NumberAnimation {
@@ -24,6 +36,10 @@ Item {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // progress: γραμμικός "ρυθμιστής" για τις επιλογές και το σκούρο φόντο
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   property real progress: expanded ? 1 : 0
   Behavior on progress {
     NumberAnimation {
@@ -32,6 +48,10 @@ Item {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // ripple: δακτύλιος που απλώνεται από το κουμπί τη στιγμή που ανοίγει το μενού
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   property real ripple: 0
   onExpandedChanged: if (expanded) rippleAnim.restart()
   NumberAnimation {
@@ -54,6 +74,10 @@ Item {
     { key: "reload",  label: i18n.tr("Refresh"),       icon: "reload" }
   ]
 
+<<<<<<< HEAD
+=======
+  // Σκούρο scrim πίσω από το μενού· πατώντας οπουδήποτε αλλού κλείνει.
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   Rectangle {
     anchors.fill: parent
     color: "black"
@@ -72,7 +96,11 @@ Item {
     height: root.btnSize
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
+<<<<<<< HEAD
 
+=======
+    // Το κέντρο του origin ακολουθεί το κέντρο του ΟΡΑΤΟΥ μέρους του κουμπιού
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     anchors.bottomMargin: -root.btnSize / 4 + root.lift * root.liftDistance
 
     Repeater {
@@ -83,14 +111,25 @@ Item {
 
         readonly property real angle: Math.PI * (1 - index / (root.entries.length - 1))
 
+<<<<<<< HEAD
         readonly property bool active: modelData.key !== "back" || root.canGoBack
 
+=======
+        // Το "Back" είναι ανενεργό όταν δεν υπάρχει προηγούμενη σελίδα
+        readonly property bool active: modelData.key !== "back" || root.canGoBack
+
+        // Προσωπική πρόοδος της επιλογής (0..1), με καθυστέρηση ανά θέση
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         readonly property real t: {
           var start = (index / (root.entries.length - 1)) * root.staggerFrac;
           var v = (root.progress - start) / (1 - root.staggerFrac);
           return Math.max(0, Math.min(1, v));
         }
+<<<<<<< HEAD
 
+=======
+        // easeOutBack: βγαίνει λίγο παραπάνω και "κάθεται" στη θέση του
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         readonly property real eased: {
           var c1 = 1.5, c3 = c1 + 1, u = t - 1;
           return t <= 0 ? 0 : (t >= 1 ? 1 : 1 + c3 * u * u * u + c1 * u * u);
@@ -110,7 +149,11 @@ Item {
           color: itemArea.pressed ? root.accentColor : "#262626"
           border.color: root.accentColor
           border.width: units.dp(2)
+<<<<<<< HEAD
 
+=======
+          // Μικραίνει ελαφρά και γεμίζει πορτοκαλί όταν το πατάς
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
           scale: itemArea.pressed ? 0.88 : 1
           Behavior on scale { NumberAnimation { duration: 110; easing.type: Easing.OutQuad } }
           Behavior on color { ColorAnimation { duration: 120 } }
@@ -131,8 +174,13 @@ Item {
           text: modelData.label
           textSize: Label.XSmall
           color: "white"
+<<<<<<< HEAD
           opacity: entry.t
 
+=======
+          opacity: entry.t   // οι ετικέτες εμφανίζονται λίγο πιο αργά
+          // ... και ανεβαίνουν απαλά στη θέση τους
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
           transform: Translate { y: (1 - entry.t) * -units.gu(1) }
         }
 
@@ -149,12 +197,21 @@ Item {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // Το κύριο κουμπί: μισός κύκλος στο κάτω άκρο· όταν πατιέται ανεβαίνει και
+  // το "+" γυρίζει 45° και γίνεται "×".
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   Rectangle {
     id: mainBtn
     width: root.btnSize
     height: root.btnSize
     radius: width / 2
+<<<<<<< HEAD
 
+=======
+    // Μαύρο κουμπί με πορτοκαλί περίγραμμα, στο στυλ του Reddit
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     color: "black"
     border.color: root.accentColor
     border.width: units.dp(2)
@@ -162,9 +219,17 @@ Item {
     anchors.bottom: parent.bottom
     anchors.bottomMargin: -root.btnSize / 2 + root.lift * root.liftDistance
 
+<<<<<<< HEAD
     scale: btnArea.pressed ? 0.9 : 1
     Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutQuad } }
 
+=======
+    // Μικρό "πάτημα" όταν αγγίζεται το κουμπί
+    scale: btnArea.pressed ? 0.9 : 1
+    Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutQuad } }
+
+    // Δακτύλιος που απλώνεται και σβήνει όταν ανοίγει το μενού
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     Rectangle {
       anchors.centerIn: parent
       width: root.btnSize * (1 + root.ripple * 1.1)
@@ -177,6 +242,10 @@ Item {
       visible: root.ripple > 0 && root.ripple < 1
     }
 
+<<<<<<< HEAD
+=======
+    // Το εικονίδιο κατεβαίνει στο κέντρο του κουμπιού όσο αυτό ανεβαίνει
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     Item {
       id: iconBox
       width: units.gu(3.4)
@@ -184,6 +253,10 @@ Item {
       anchors.horizontalCenter: parent.horizontalCenter
       y: (root.btnSize / 4 - height / 2) + root.lift * (root.btnSize / 4)
 
+<<<<<<< HEAD
+=======
+      // Το λογότυπο του Reddit όταν το μενού είναι κλειστό
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       Image {
         anchors.fill: parent
         source: Qt.resolvedUrl("../assets/logo.png")
@@ -194,6 +267,10 @@ Item {
         visible: opacity > 0
       }
 
+<<<<<<< HEAD
+=======
+      // "×" όταν το μενού είναι ανοιχτό
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       Icon {
         anchors.fill: parent
         name: "close"
@@ -204,6 +281,10 @@ Item {
       }
     }
 
+<<<<<<< HEAD
+=======
+    // Μεγαλύτερη περιοχή αφής προς τα πάνω, αφού φαίνεται μόνο το μισό κουμπί
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     MouseArea {
       id: btnArea
       anchors {

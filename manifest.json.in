@@ -4,10 +4,17 @@
     "architecture": "@CLICK_ARCH@",
     "title": "Reddit unofficial",
     "hooks": {
+<<<<<<< HEAD
         "reddit": {
             "apparmor": "reddit.apparmor",
             "desktop":  "reddit.desktop",
             "content-hub": "reddit-content-hub.json" 
+=======
+        "instaweb": {
+            "apparmor": "instaweb.apparmor",
+            "desktop":  "instaweb.desktop",
+            "content-hub": "instaweb-content-hub.json" 
+>>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         }
     },
     "version": "0.1.0",
