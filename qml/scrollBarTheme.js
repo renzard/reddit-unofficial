@@ -34,6 +34,24 @@
         }
         * { -webkit-tap-highlight-color: transparent; }
 
+        html, body {
+            overflow-y: auto !important;
+            touch-action: pan-x pan-y pinch-zoom !important;
+            overscroll-behavior: auto !important;
+        }
+        body[style*="position: fixed"], body[style*="position:fixed"] {
+            position: static !important;
+        }
+
+        xpromo-bottom-sheet,
+        xpromo-app-selector,
+        xpromo-bottom-banner,
+        xpromo-header-button,
+        [id*="xpromo" i]:not(xpromo-nsfw-blocking-container),
+        [data-testid*="xpromo" i] {
+            display: none !important;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation: none !important;
@@ -127,7 +145,77 @@
         } catch (e) {}
     }
 
+
+    function blockAppPrompts() {
+        var TEXT = /^\s*(open|use|get|continue|view)(\s+in)?(\s+the)?(\s+reddit)?\s+app\s*$/i;
+        var KEEP = /nsfw-blocking/i;
+        var queued = false;
+
+        function scan(root) {
+            var walker;
+            try {
+                walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+            } catch (e) { return; }
+            var n, kill = [];
+            while ((n = walker.nextNode())) {
+                var tag = n.tagName ? n.tagName.toLowerCase() : "";
+                if (n.shadowRoot) scan(n.shadowRoot);
+                if (tag.indexOf("xpromo") === 0 && !KEEP.test(tag)) {
+                    kill.push(n);
+                } else if ((tag === "a" || tag === "button") && TEXT.test(n.textContent || "")) {
+                    kill.push(n);
+                }
+            }
+            for (var i = 0; i < kill.length; i++) {
+                try { kill[i].style.setProperty("display", "none", "important"); } catch (e) {}
+            }
+        }
+
+        function unlockScroll() {
+            var b = document.body, h = document.documentElement;
+            if (!b) return;
+            var LOCK = /scroll.?lock|no.?scroll|overflow.?hidden|modal.?open|sheet.?open|locked/i;
+            [b, h].forEach(function(el) {
+                el.style.removeProperty("overflow");
+                el.style.removeProperty("overflow-y");
+                el.style.removeProperty("touch-action");
+                el.style.removeProperty("overscroll-behavior");
+                el.style.removeProperty("padding-right");
+                if (el.style.position === "fixed") {
+                    el.style.removeProperty("position");
+                    el.style.removeProperty("top");
+                    el.style.removeProperty("width");
+                }
+                var cls = Array.prototype.slice.call(el.classList);
+                for (var i = 0; i < cls.length; i++) {
+                    if (LOCK.test(cls[i])) el.classList.remove(cls[i]);
+                }
+            });
+        }
+
+        function run() {
+            queued = false;
+            scan(document);
+            unlockScroll();
+        }
+
+        function schedule() {
+            if (queued) return;
+            queued = true;
+            setTimeout(run, 150);
+        }
+
+        run();
+        new MutationObserver(schedule).observe(document.documentElement, {
+            childList: true, subtree: true
+        });
+        var relock = new MutationObserver(unlockScroll);
+        relock.observe(document.documentElement, { attributes: true, attributeFilter: ["style", "class"] });
+        if (document.body) relock.observe(document.body, { attributes: true, attributeFilter: ["style", "class"] });
+    }
+
     function init() {
+        blockAppPrompts();
         enableEdgeSwipeBack();
         enablePageTransitions();
     }
