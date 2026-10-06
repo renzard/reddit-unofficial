@@ -1,0 +1,16 @@
+{
+    "name": "reddit.unofficial",
+    "description": "Unofficial WebApp for Reddit",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Reddit unofficial",
+    "hooks": {
+        "reddit": {
+            "apparmor": "reddit.apparmor",
+            "desktop":  "reddit.desktop",
+            "content-hub": "reddit-content-hub.json" 
+        }
+    },
+    "version": "0.1.0",
+    "maintainer": "Renzard politakis <renzardpolitakis@gmail.com>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
