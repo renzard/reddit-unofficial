@@ -1,20 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-<<<<<<< HEAD
-# This file is distributed under the same license as the reddit.unofficial package.
-=======
-# This file is distributed under the same license as the x.ivoxavier package.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
+# This file is distributed under the same license as the redditwebapp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-<<<<<<< HEAD
-"Project-Id-Version: reddit.unofficial\n"
-=======
-"Project-Id-Version: x.ivoxavier\n"
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
+"Project-Id-Version: redditwebapp\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-02 12:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -29,12 +21,6 @@ msgstr ""
 msgid "Import from..."
 msgstr "Importar de..."
 
-<<<<<<< HEAD
 #: reddit.desktop.in.h:1
 msgid "Reddit"
 msgstr "Reddit"
-=======
-#: instaweb.desktop.in.h:1
-msgid "X"
-msgstr "X"
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587

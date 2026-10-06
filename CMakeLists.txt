@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-<<<<<<< HEAD
 project(reddit C CXX)
-=======
-project(instaweb C CXX)
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
 
 # Automatically create moc files
 set(CMAKE_AUTOMOC ON)
@@ -15,11 +11,7 @@ execute_process(
 )
 set(QT_IMPORTS_DIR "lib/${ARCH_TRIPLET}")
 
-<<<<<<< HEAD
 set(PROJECT_NAME "reddit")
-=======
-set(PROJECT_NAME "instaweb")
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
 set(FULL_PROJECT_NAME "reddit.unofficial")
 set(DATA_DIR /)
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
@@ -46,11 +38,7 @@ endif()
 configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
-<<<<<<< HEAD
 install(FILES reddit-content-hub.json DESTINATION ${DATA_DIR})
-=======
-install(FILES instaweb-content-hub.json DESTINATION ${DATA_DIR})
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
 
 install(DIRECTORY qml DESTINATION ${DATA_DIR})

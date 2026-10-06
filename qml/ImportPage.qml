@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /*
-=======
-/* 
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
  * Copyright (C) 2026 renzard politakis
  *
  * This program is free software: you can redistribute it and/or modify
@@ -21,21 +17,11 @@ Page {
     id: importPage
     objectName: "importPage"
 
-<<<<<<< HEAD
-=======
-    // Ίδια λογική χρωμάτων με το Main.qml, ώστε το header εδώ να ταιριάζει
-    // οπτικά με την υπόλοιπη εφαρμογή, ΚΑΙ να προσαρμόζεται στο light/dark
-    // θέμα της συσκευής αντί να μένει πάντα στο ίδιο, φωναχτό μωβ.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     property color b_color: "#501644"
     property color b_colorDark: "#1b0e17"
     readonly property color headerColor: Suru.theme === 0 ? b_color : b_colorDark
     readonly property color accentColor: Suru.theme === 0 ? b_color : "#d99fc9"
 
-<<<<<<< HEAD
-=======
-    // Signals για ενημέρωση του Main.qml
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     signal imported(var fileUrl)
     signal canceled()
 
@@ -43,14 +29,6 @@ Page {
     property var handler: ContentHandler.Source
     property var activeTransfer: null
 
-<<<<<<< HEAD
-=======
-    // FIX: αυτή η σελίδα φορτώνεται δυναμικά από άλλο αρχείο (Main.qml) μέσω
-    // Qt.resolvedUrl(), άρα ΔΕΝ βλέπει τα id του Main.qml (π.χ. mainPageStack).
-    // Το page stack περνάει τώρα ρητά ως property κατά το push() - πριν, το
-    // κουμπί "Πίσω" και το "Cancel" προσπαθούσαν να καλέσουν ένα id που δεν
-    // υπήρχε καν σε αυτό το scope.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     property var pageStack: null
 
     header: PageHeader {
@@ -75,11 +53,6 @@ Page {
         }
     }
 
-<<<<<<< HEAD
-=======
-    // Ελαφρύ, θεματικό φόντο πίσω από τη λίστα επιλογής, ώστε η σελίδα να
-    // μη φαίνεται σαν "γυμνό" system dialog.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     Rectangle {
         anchors.fill: parent
         color: theme.palette.normal.background
@@ -135,14 +108,7 @@ Page {
                             var fileUrl = importPage.activeTransfer.items[0].url;
                             importPage.imported(fileUrl);
                         } else {
-<<<<<<< HEAD
 
-=======
-                            // FIX: αν ο μεταφορέας ολοκληρώθηκε αλλά δεν έφερε
-                            // κανένα αρχείο, ενημέρωνε ξανά ως "canceled" ώστε
-                            // το Main.qml να απορρίψει το αίτημα αντί να μείνει
-                            // κρεμασμένο περιμένοντας ένα imported που δεν θα έρθει ποτέ.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
                             importPage.canceled();
                         }
                     } else if (importPage.activeTransfer.state === ContentTransfer.Aborted) {

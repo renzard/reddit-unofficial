@@ -1,23 +1,11 @@
 (function() {
-<<<<<<< HEAD
     var css = `
-=======
-    // Script που μπαίνει μέσα στο reddit.com. Δεν βασίζεται σε συγκεκριμένα
-    // CSS class names, μόνο σε links και βασική συμπεριφορά της σελίδας.
-
-    var css = `
-        /* ----- Απόκρυψη scrollbar (πιο "native" εμφάνιση μέσα σε app) ----- */
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         ::-webkit-scrollbar {
             -webkit-appearance: none !important;
             width: 0px !important;
             height: 0px !important;
         }
 
-<<<<<<< HEAD
-=======
-        /* ----- Animations μέσα στο Reddit ----- */
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         @keyframes rd-fade-up {
             from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: none; }
@@ -27,10 +15,6 @@
             to   { opacity: 1; }
         }
 
-<<<<<<< HEAD
-=======
-        /* Τα posts και τα σχόλια εμφανίζονται απαλά καθώς φορτώνουν / κάνεις scroll */
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         shreddit-post, article {
             animation: rd-fade-up 0.38s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
         }
@@ -38,18 +22,10 @@
             animation: rd-fade-in 0.3s ease-out backwards;
         }
 
-<<<<<<< HEAD
-=======
-        /* Απαλό cross-fade όταν αλλάζει σελίδα (SPA πλοήγηση) */
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         html.rd-nav body {
             animation: rd-fade-in 0.28s ease-out;
         }
 
-<<<<<<< HEAD
-=======
-        /* Feedback αφής στα κουμπιά */
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         button, [role="button"] {
             transition: transform 0.12s ease, opacity 0.12s ease;
         }
@@ -58,10 +34,6 @@
         }
         * { -webkit-tap-highlight-color: transparent; }
 
-<<<<<<< HEAD
-=======
-        /* Σεβασμός στη ρύθμιση "μείωση κίνησης" της συσκευής */
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation: none !important;
@@ -75,12 +47,6 @@
     node.appendChild(document.createTextNode(css));
     (document.head || document.documentElement).appendChild(node);
 
-<<<<<<< HEAD
-=======
-    // ----- EDGE-SWIPE "ΠΙΣΩ" -----
-    // Swipe από την αριστερή άκρη -> history.back(), αντίστοιχο με τη native
-    // χειρονομία επιστροφής του Ubuntu Touch.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     function enableEdgeSwipeBack() {
         var startX = null;
         var startY = null;
@@ -112,12 +78,6 @@
         }, { passive: true });
     }
 
-<<<<<<< HEAD
-=======
-    // Πλοήγηση από το floating μενού (καλείται από το Main.qml). Αν υπάρχει
-    // το αντίστοιχο link στη σελίδα το πατάμε (αλλαγή σελίδας μέσα στην
-    // εφαρμογή). Αλλιώς κάνουμε κανονική φόρτωση της διεύθυνσης.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     var paths = {
         home:    '/',
         popular: '/r/popular',
@@ -144,23 +104,13 @@
         window.location.assign(path);
     };
 
-<<<<<<< HEAD
-=======
-    // ----- ΑΝΙΜΕΪΣΝ ΑΛΛΑΓΗΣ ΣΕΛΙΔΑΣ -----
-    // Το Reddit αλλάζει σελίδα χωρίς πλήρες reload (history.pushState).
-    // Σε κάθε αλλαγή ξαναπαίζουμε ένα σύντομο fade του body.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
     function enablePageTransitions() {
         var root = document.documentElement;
         var timer = null;
 
         function pulse() {
             root.classList.remove("rd-nav");
-<<<<<<< HEAD
             void root.offsetWidth;
-=======
-            void root.offsetWidth; // επανεκκίνηση του animation
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
             root.classList.add("rd-nav");
             clearTimeout(timer);
             timer = setTimeout(function() { root.classList.remove("rd-nav"); }, 350);

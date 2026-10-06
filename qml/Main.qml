@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /*
-=======
-/* 
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
  * Copyright (C) 2026 renzard politakis
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,34 +24,22 @@ import QtSystemInfo 5.5
 import Lomiri.Content 1.3
 import QtQuick.Controls.Suru 2.2
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
 MainView {
   id: mainView
 
   objectName: "mainView"
 
-<<<<<<< HEAD
-=======
-  // Μαύρο φόντο στο splash και στο παράθυρο, και στα δύο themes.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   property color b_color: "#000000"
   property color b_colorDark: "#000000"
 
   readonly property color headerColor: Suru.theme === 0 ? b_color : b_colorDark
-<<<<<<< HEAD
 
-=======
-  // Το χαρακτηριστικό πορτοκαλί του Reddit για κουμπιά, progress bar κ.λπ.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   readonly property color accentColor: "#FF4500"
 
   width: units.gu(45)
   height: units.gu(75)
 
-  applicationName: "reddit.unofficial"
+  applicationName: "redditwebapp"
   backgroundColor: "black"
 
   anchors {
@@ -63,13 +47,6 @@ MainView {
     bottomMargin: LomiriApplication.inputMethod.visible ? LomiriApplication.inputMethod.keyboardRectangle.height/(units.gridUnit / 8) : 0
   }
 
-<<<<<<< HEAD
-=======
-  // FIX: Το "Behavior on X" πρέπει να δηλώνεται ΕΚΤΟΣ του grouped property
-  // block (anchors {...}). Μέσα στο group επιτρέπονται μόνο απλές τιμές
-  // ιδιοτήτων, όχι δηλώσεις αντικειμένων σαν το Behavior - όπως ήταν πριν,
-  // το animation ποτέ δεν εφαρμοζόταν στην πραγματικότητα.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
   Behavior on anchors.bottomMargin {
     NumberAnimation {
       duration: 175
@@ -86,12 +63,6 @@ MainView {
       id: pageMain
       anchors.fill: parent
 
-<<<<<<< HEAD
-=======
-      // Χωρίς top bar: το webview πιάνει όλη την οθόνη
-      // Το header=null ΔΕΝ το κρύβει στο Lomiri (μένει μια μαύρη μπάρα που
-      // σκεπάζει το πάνω μέρος του X). Το κρύβουμε ρητά με μηδενικό ύψος.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       header: PageHeader {
         visible: false
         height: 0
@@ -108,10 +79,6 @@ MainView {
         }
         focus: true
 
-<<<<<<< HEAD
-=======
-        // Απαλό "βούτηγμα" της διαφάνειας όταν ξεκινά νέα φόρτωση σελίδας
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         Behavior on opacity {
           NumberAnimation { duration: 280; easing.type: Easing.OutCubic }
         }
@@ -122,26 +89,15 @@ MainView {
         settings.showScrollBars: false
         settings.playbackRequiresUserGesture: false
 
-<<<<<<< HEAD
-=======
-        // Κρατάμε ένα flag για να ξέρουμε αν η τελευταία φόρτωση απέτυχε
-        // (π.χ. δεν υπάρχει σύνδεση στο ίντερνετ), ώστε να δείξουμε τη δική
-        // μας, μοντέρνα οθόνη σφάλματος αντί για την άσχημη προεπιλεγμένη
-        // του Chromium.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         property bool hasError: false
 
         profile: WebEngineProfile {
           id: webContext
           httpUserAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.163 Mobile Safari/537.36"
-          storageName: "reddit.unofficial"
+          storageName: "redditwebapp"
           persistentCookiesPolicy: WebEngineProfile.ForcePersistentCookies
           httpCacheType: WebEngineProfile.DiskHttpCache
-<<<<<<< HEAD
           httpCacheMaximumSize: 157286400
-=======
-          httpCacheMaximumSize: 157286400 // 150MB - λιγότερα ξαναφορτώματα σε επόμενα ανοίγματα
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         }
 
         userScripts: WebEngineScript {
@@ -153,10 +109,6 @@ MainView {
 
         url: "https://www.reddit.com/"
 
-<<<<<<< HEAD
-=======
-        // Δικαιώματα για Ειδοποιήσεις, Μικρόφωνο και Κάμερα
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         onFeaturePermissionRequested: function(securityOrigin, feature) {
             if (feature === WebEngineView.Notifications ||
                 feature === WebEngineView.MediaAudioCapture ||
@@ -166,10 +118,6 @@ MainView {
             }
         }
 
-<<<<<<< HEAD
-=======
-        // Επιλογή και αποστολή φωτογραφίας/βίντεο σε νέο tweet/DM
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         onFileDialogRequested: function(request) {
           request.accepted = true;
           var importPage = mainPageStack.push(Qt.resolvedUrl("ImportPage.qml"), {
@@ -208,31 +156,18 @@ MainView {
         }
       }
 
-<<<<<<< HEAD
-=======
-      // ---- Λεπτή μπάρα προόδου φόρτωσης, κάτω από το header ----
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       Rectangle {
         anchors { top: parent.top; left: parent.left }
         height: units.gu(0.3)
         width: parent.width * (webview.loadProgress / 100)
         color: mainView.accentColor
-<<<<<<< HEAD
 
-=======
-        // Σβήνει σιγά-σιγά όταν τελειώσει η φόρτωση, αντί να εξαφανίζεται απότομα
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         opacity: (webview.loadProgress > 0 && webview.loadProgress < 100 && !webview.hasError) ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { NumberAnimation { duration: 300 } }
         Behavior on width { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
       }
 
-<<<<<<< HEAD
-=======
-      // ---- Δική μας οθόνη "χωρίς σύνδεση", αντί για το προεπιλεγμένο,
-      // άσχημο error page του Chromium ----
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       Rectangle {
         id: offlineScreen
         anchors { top: parent.top; left: parent.left; right: parent.right; bottom: parent.bottom }
@@ -245,11 +180,7 @@ MainView {
           anchors.centerIn: parent
           spacing: units.gu(2)
           width: parent.width * 0.8
-<<<<<<< HEAD
 
-=======
-          // Ανεβαίνει απαλά από κάτω καθώς εμφανίζεται
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
           transform: Translate { y: (1 - offlineScreen.opacity) * units.gu(4) }
 
           Rectangle {
@@ -260,10 +191,6 @@ MainView {
             anchors.horizontalCenter: parent.horizontalCenter
             color: Qt.rgba(mainView.accentColor.r, mainView.accentColor.g, mainView.accentColor.b, 0.15)
 
-<<<<<<< HEAD
-=======
-            // Ήρεμο "αναπνέει" όσο είναι ορατή η οθόνη
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
             SequentialAnimation on scale {
               loops: Animation.Infinite
               running: offlineScreen.visible
@@ -301,11 +228,7 @@ MainView {
             text: i18n.tr("Δοκίμασε ξανά")
             anchors.horizontalCenter: parent.horizontalCenter
             color: mainView.accentColor
-<<<<<<< HEAD
 
-=======
-            // Μικρό "πάτημα" όταν το αγγίζεις
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
             scale: pressed ? 0.94 : 1
             Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutQuad } }
             onClicked: {
@@ -316,10 +239,6 @@ MainView {
         }
       }
 
-<<<<<<< HEAD
-=======
-      // ---- Floating κουμπί με το λογότυπο με ημικυκλικό μενού συντομεύσεων ----
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       FabMenu {
         anchors {
           fill: parent
@@ -328,21 +247,13 @@ MainView {
         z: 500
         accentColor: mainView.accentColor
         canGoBack: webview.canGoBack
-<<<<<<< HEAD
 
-=======
-        // Εμφανίζεται πάντα, σε όλες τις σελίδες
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         readonly property bool wanted: true
         opacity: wanted ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { NumberAnimation { duration: 250 } }
         onWantedChanged: if (!wanted) expanded = false
 
-<<<<<<< HEAD
-=======
-        // Πλοήγηση ΜΕΣΑ στη σελίδα (SPA), χωρίς πλήρες reload
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         onNavigate: {
           if (target === "back") { webview.goBack(); return; }
           if (target === "reload") { webview.reload(); return; }
@@ -350,12 +261,6 @@ MainView {
         }
       }
 
-<<<<<<< HEAD
-=======
-      // ---- Splash screen κατά το πρώτο άνοιγμα ----
-      // Απλό μαύρο φόντο με το λογότυπο και πορτοκαλί "reddit" κείμενο - σβήνει μόλις
-      // φορτώσει η πρώτη σελίδα.
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
       Rectangle {
         id: splashScreen
         anchors.fill: parent
@@ -371,11 +276,7 @@ MainView {
         Column {
           anchors.centerIn: parent
           spacing: units.gu(2)
-<<<<<<< HEAD
 
-=======
-          // Όταν το splash φεύγει, το περιεχόμενο μεγαλώνει ελαφρά ενώ σβήνει
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
           scale: 1 + (1 - splashScreen.opacity) * 0.15
 
           Image {
@@ -402,10 +303,6 @@ MainView {
             transform: Translate { id: splashTextShift; y: units.gu(2.5) }
           }
 
-<<<<<<< HEAD
-=======
-          // Μικρή μπάρα φόρτωσης που τρέχει όσο φαίνεται το splash
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
           Rectangle {
             width: units.gu(10)
             height: units.gu(0.3)
@@ -435,10 +332,6 @@ MainView {
           }
         }
 
-<<<<<<< HEAD
-=======
-        // Είσοδος: το λογότυπο "πετάγεται" με ελατήριο, μετά ανεβαίνει το κείμενο
->>>>>>> 6c60eaed8daa7a950f5472a525263e56f470d587
         ParallelAnimation {
           running: true
           NumberAnimation { target: splashLogo; property: "opacity"; to: 1; duration: 350 }
