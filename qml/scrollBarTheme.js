@@ -1,4 +1,18 @@
 (function() {
+    // Only touch reddit.com itself (never Google/Apple/captcha pages)
+    var host = location.hostname || "";
+    if (!/(^|\.)reddit\.com$/i.test(host)) return;
+
+    // Log JS errors so they show up in the app log (prefix RD-)
+    window.addEventListener("error", function(e) {
+        console.log("RD-error: " + e.message + " @" + e.filename + ":" + e.lineno);
+    });
+
+    // Login / register / password-reset pages: no tweaks at all,
+    // they were interfering with the login dialog (button did nothing).
+    var AUTH_PATH = /^\/(login|register|account|password|verification|settings\/account)/i;
+    var onAuthPage = AUTH_PATH.test(location.pathname);
+
     var css = `
         ::-webkit-scrollbar {
             -webkit-appearance: none !important;
@@ -25,22 +39,12 @@
         html.rd-nav body {
             animation: rd-fade-in 0.28s ease-out;
         }
-
-        button, [role="button"] {
-            transition: transform 0.12s ease, opacity 0.12s ease;
-        }
-        button:active, [role="button"]:active {
-            transform: scale(0.94);
-        }
         * { -webkit-tap-highlight-color: transparent; }
 
         html, body {
             overflow-y: auto !important;
             touch-action: pan-x pan-y pinch-zoom !important;
             overscroll-behavior: auto !important;
-        }
-        body[style*="position: fixed"], body[style*="position:fixed"] {
-            position: static !important;
         }
 
         xpromo-bottom-sheet,
@@ -167,11 +171,16 @@
                 }
             }
             for (var i = 0; i < kill.length; i++) {
-                try { kill[i].style.setProperty("display", "none", "important"); } catch (e) {}
+                try { kill[i].style.setProperty("display", "none", "important"); promoRemoved = true; } catch (e) {}
             }
         }
 
+        var promoRemoved = false;
+
         function unlockScroll() {
+            if (!promoRemoved) return;
+            // never touch the page while a login/other dialog is open
+            if (document.querySelector("auth-flow-modal, faceplate-auth-flow, shreddit-auth-modal, dialog[open]")) return;
             var b = document.body, h = document.documentElement;
             if (!b) return;
             var LOCK = /scroll.?lock|no.?scroll|overflow.?hidden|modal.?open|sheet.?open|locked/i;
@@ -215,6 +224,7 @@
     }
 
     function init() {
+        if (onAuthPage) return;
         blockAppPrompts();
         enableEdgeSwipeBack();
         enablePageTransitions();

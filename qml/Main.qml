@@ -36,6 +36,14 @@ MainView {
 
   readonly property color accentColor: "#FF4500"
 
+  // Hosts that must open INSIDE the app (login, Google/Apple sign-in, captcha)
+  function isInAppUrl(u) {
+    var m = /^https?:\/\/([^\/:?#]+)/i.exec(String(u));
+    if (!m) return false;
+    var h = m[1].toLowerCase();
+    return /(^|\.)(reddit\.com|redd\.it|redditstatic\.com|redditmedia\.com|google\.com|gstatic\.com|recaptcha\.net|hcaptcha\.com|apple\.com)$/.test(h);
+  }
+
   width: units.gu(45)
   height: units.gu(75)
 
@@ -137,13 +145,25 @@ MainView {
 
         onNewViewRequested: {
             request.action = WebEngineNavigationRequest.IgnoreRequest
-            if (request.userInitiated) {
+            // login popups (reddit / Google / Apple) load in the same view
+            if (mainView.isInAppUrl(request.requestedUrl)) {
+                webview.url = request.requestedUrl
+            } else if (request.userInitiated) {
                 Qt.openUrlExternally(request.requestedUrl)
+            }
+        }
+
+        onNavigationRequested: {
+            // ignore app deep links (intent://, reddit://) that lead nowhere
+            var u = String(request.url)
+            if (/^(intent|reddit|market):/i.test(u)) {
+                request.action = WebEngineNavigationRequest.IgnoreRequest
             }
         }
 
         onJavaScriptConsoleMessage: function(level, message, lineNumber, sourceID) {
           if (message.indexOf("RD-") === 0) console.log(message);
+          if (level === WebEngineView.ErrorMessageLevel && /login|auth|captcha/i.test(String(sourceID) + message)) console.log("RD-js: " + message);
         }
 
         onLoadingChanged: function(loadRequest) {
